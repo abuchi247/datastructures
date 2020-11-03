@@ -18,7 +18,7 @@ def selection_sort(arr):
     :return:
     """
 
-    for i in range(len(arr) - 1):
+    for i in range(len(arr)):    # for each iteration, we put the smallest element in the right position
         for j in range(i+1, len(arr)):
             if arr[i] > arr[j]:
                 swap(arr, i, j) # swap elements
