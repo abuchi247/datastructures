@@ -13,17 +13,16 @@ def swap(arr, i, j):
     arr[j] = temp
 
 
-def selection_sort(arr):
-    """
-    Using the selection sort to sort the array
-    :param arr:
-    :return:
-    """
+def bubble_sort(arr):
+    for i in range(len(arr)):
+        swapped = False
+        for j in range(len(arr)-1, i, -1):
+            if arr[j] < arr[j-1]:
+                swapped = True
+                swap(arr, j, j-1)
+        if not swapped:
+            break
 
-    for i in range(len(arr)):    # for each iteration, we put the smallest element in the right position
-        for j in range(i+1, len(arr)):
-            if arr[i] > arr[j]:
-                swap(arr, i, j) # swap elements
 
 if __name__ == "__main__":
     arr = [i for i in range(10, 0, -1)]
@@ -31,7 +30,7 @@ if __name__ == "__main__":
     print("Before sorting")
     # print(arr)
     start = time()
-    selection_sort(arr)
+    bubble_sort(arr)
     end = time()
     print("After sorting")
     # print(arr)
