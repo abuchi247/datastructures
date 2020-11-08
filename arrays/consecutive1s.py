@@ -11,7 +11,6 @@ def count_consecutive_1s_slow(arr):
     """
     max_ones = 0
     
-    print(arr)
     for i in range(len(arr)):
         if arr[i] == 0:
             continue
@@ -33,12 +32,12 @@ def count_consecutive_1s(arr):
     """
     max_ones = 0
     count = 0
-    for i in range(len(arr)):
-        if arr[i] == 1:
+    for num in arr:
+        if num:
             count += 1
-            max_ones = max(count, max_ones)
         else:
             count = 0
+        max_ones = max(count, max_ones)
     return max_ones
 
 
