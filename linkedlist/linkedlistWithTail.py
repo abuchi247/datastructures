@@ -122,7 +122,26 @@ class LinkedList:
         self.size -= 1
         return
 
+    def reverse(self):
+        # 1 -> 2 -> 3
+        if self.is_empty():
+            return
 
+        if self.head.next == None:
+            return self.head
+
+        first = self.head
+        self.tail = self.head
+        second = self.head.next
+
+        while second is not None:
+            next = second.next
+            second.next = first
+            first = second
+            second = next
+
+        self.head.next = None
+        self.head = first
 
     def print_list(self):
         leader = self.head
@@ -146,11 +165,21 @@ if __name__ == "__main__":
     mylist.insert(20, 50)
     print("After")
     mylist.print_list()
-    print(mylist.head.data, mylist.tail.data)
     print("Size:", mylist.get_length())
 
     print("After Delete")
     mylist.delete(50)
     mylist.print_list()
-    print(mylist.head.data, mylist.tail.data)
     print("Size:", mylist.get_length())
+
+    print("After reversing")
+    mylist.reverse()
+    mylist.print_list()
+
+    print("Adding additional data")
+    mylist.append(10)
+    mylist.prepend(50)
+    mylist.print_list()
+
+    mylist.reverse()
+    mylist.print_list()
