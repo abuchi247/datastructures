@@ -75,7 +75,7 @@ class StackLinkedList:
         self.length -= 1    # decrement the size of the stack
         return top_node # node removed
 
-    def print_elements(self):
+    def print_all(self):
         """
         Displays all the elements in the stack
 
@@ -98,6 +98,6 @@ if __name__ == '__main__':
     stack.push(14)
     stack.push(10)
     print(stack.peek().data)
-    stack.print_elements()
+    stack.print_all()
 
 
