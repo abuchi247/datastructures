@@ -60,11 +60,12 @@ class QueueLinkedList:
             return
         
         item_removed = self.first # get the first item
-        self.first = self.first.next    # set first to be the next item to first
 
-        # Come here if the queue had only one item before
-        if self.first is None:
+         # Come here if the queue had only one item before
+        if self.first == self.last:
             self.last = None
+
+        self.first = self.first.next    # set first to be the next item to first
 
         self.size -= 1
         return item_removed
