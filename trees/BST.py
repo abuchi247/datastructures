@@ -8,6 +8,14 @@ class BinaryTreeNode:
         self.level = -1
 
 class BinarySearchTree:
+    """
+    A hierarchical dat structure with the following supports
+
+    lookup(value)
+    insert(value)
+    remove(value)
+
+    """
     def __init__(self):
         self.root = None
 
