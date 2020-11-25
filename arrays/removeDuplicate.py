@@ -18,14 +18,14 @@ def removeDuplicates(nums):
     if len(nums) < 2:
         return len(nums)
 
-    index = 0 
+    pos = 0 
     for j in range(1, len(nums)):
-        if nums[index] == nums[j]:
+        if nums[pos] == nums[j]:
             continue
-        index += 1 # increment index
-        nums[index] = nums[j] # update the value at index position
+        pos += 1 # increment index
+        nums[pos] = nums[j] # update the value at index position
 
-    return index + 1 # incrementing to get the actual length of unique values
+    return pos + 1 # incrementing to get the actual length of unique values
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@
 
 def count_consecutive_1s_slow(arr):
     """ 
-    Time complexity = O(n)
+    Time complexity = O(N^2)
     Space complexity = O(1)
     """
     max_ones = 0
