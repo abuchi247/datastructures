@@ -27,31 +27,37 @@
 # 3. Elements in the array is always valid
 # 4. Numbers are always positive
 
+test1 = '''
 def find_numbers_fast(nums):
     even_digit_count = 0
     for num in nums:
         if len(str(num)) % 2 == 0:
             even_digit_count += 1
     return even_digit_count
+'''
 
+test2 = '''
 def find_numbers_slow(nums):
     "Big O(N*M)"
     even_digit_count = 0
+    def count_digits(num):
+        digits = 0
+        while num > 0:
+            digits += 1
+            num = num//10
+        return digits
+        
     for num in nums:
         if count_digits(num) % 2 == 0:
             even_digit_count += 1
     return even_digit_count
 
-
-def count_digits(num):
-    digits = 0
-    while num > 0:
-        digits += 1
-        num = num//10
-    return digits
-
+'''
 
 if __name__ == "__main__":
     nums = [12,345,2,6,7896]
-    nums = [555,901,482,1771, 00]
-    print(find_numbers_slow(nums))
+    nums = [10 ** 10] * 10
+
+    import timeit
+    print(timeit.timeit(stmt = test1, number=1000000))
+    print(timeit.timeit(stmt = test2, number=1000000))
