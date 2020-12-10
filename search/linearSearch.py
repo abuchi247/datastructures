@@ -3,7 +3,8 @@ def find(arr, target):
     Big O(N)
     """
     if arr is None:
-        return
+        return False
+        
     if not isinstance(arr, (list, tuple)):
         raise TypeError(f"{arr} is not a list or tuple")
 
