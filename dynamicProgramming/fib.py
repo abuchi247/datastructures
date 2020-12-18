@@ -16,5 +16,5 @@ def fibonacci(n):
     return fibs[n]
 
 if __name__ == "__main__":
-    print(fibonacci(10))
+    print(fibonacci(100))
     print("Number of cals: ", visited["count"])
