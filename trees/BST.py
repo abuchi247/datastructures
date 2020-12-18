@@ -1,11 +1,11 @@
 class BinaryTreeNode:
 
     def __init__(self, data):
-        self.parent = None
-        self.left_child = None
-        self.right_child = None
+        # self.parent = None
+        self.left = None
+        self.right = None
         self.value = data
-        self.level = -1
+        # self.level = -1
 
 class BinarySearchTree:
     """
@@ -47,7 +47,7 @@ class BinarySearchTree:
 
         # check if the tree is empty
         if self.is_empty():
-            new_node.level += 1 # increment the level 
+            # new_node.level += 1 # increment the level 
             self.root = new_node
             return
         
@@ -57,22 +57,22 @@ class BinarySearchTree:
             if curr.value == value:
                 print(f"You cannot insert duplicate value: {value}")
                 return
-            elif curr.value > value:    # go to the left child of node
-                if curr.left_child is None: # if there's no left child insert it here
-                    new_node.parent = curr
-                    new_node.level = curr.level + 1
-                    curr.left_child = new_node
+            elif value < curr.value:    # go to the left child of node
+                if curr.left is None: # if there's no left child insert it here
+                    # new_node.parent = curr
+                    # new_node.level = curr.level + 1
+                    curr.left = new_node
                     return
                 # else there's a left child
-                curr = curr.left_child  # move to the left child
+                curr = curr.left  # move to the left child
             else:   # check the right  size of the curr node
-                if curr.right_child is None:
-                    new_node.parent = curr  # set the new node parent to be the current node
-                    new_node.level = curr.level + 1
-                    curr.right_child = new_node
+                if curr.right is None:
+                    # new_node.parent = curr  # set the new node parent to be the current node
+                    # new_node.level = curr.level + 1
+                    curr.right = new_node
                     return
                 # else, there's a right child
-                curr = curr.right_child
+                curr = curr.right
         return
 
     def lookup(self, value):
@@ -93,12 +93,12 @@ class BinarySearchTree:
                 found = True
             # value is less than curr node, move left otherwise move right
             elif curr.value > value:
-                curr = curr.left_child
+                curr = curr.left
             else:   # go to the right
-                curr = curr.right_child
+                curr = curr.right
         
         if found:
-            print(f"{curr.value} found on level {curr.level}")
+            # print(f"{curr.value} found on level {curr.level}")
             return curr
         else:
             print(f"{value} is not found")

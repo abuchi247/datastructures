@@ -14,7 +14,7 @@ def reverse_rec(string):
   if len(string) <= 1:
     return string
 
-  return string[-1] + reverse_rec(string[:-1])
+  return reverse_rec(string[1:]) + string[0]
 
 
 def main():
