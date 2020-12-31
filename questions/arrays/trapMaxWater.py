@@ -52,30 +52,31 @@ def trap_brute_force(height):
 
 
 def trap_optimized(height):
+  """
+  Time complexity: O(N)
+  Space complexity: O(1)
+  """
   total_rain = 0
-        
   max_left = 0
   max_right = 0
-  left_pointer = 0
-  right_pointer = len(height) - 1
+  left = 0
+  right = len(height) - 1
   
   
-  while left_pointer < right_pointer:
-      if height[left_pointer] <= height[right_pointer]:
-          if height[left_pointer] > max_left:
-              max_left = height[left_pointer]
+  while left < right:
+      if height[left] <= height[right]:
+          if height[left] >= max_left:
+              max_left = height[left]
           else:
-              curr_rain = max_left - height[left_pointer]
-              total_rain += curr_rain
-          left_pointer += 1
+              total_rain = max_left - height[left]
+          left += 1
 
       else:
-          if height[right_pointer] > max_right:
-              max_right = height[right_pointer]
+          if height[right] >= max_right:
+              max_right = height[right]
           else:
-              curr_rain = max_right - height[right_pointer]
-              total_rain += curr_rain
-          right_pointer -= 1
+              total_rain = max_right - height[right]
+          right -= 1
           
   return total_rain
 
@@ -87,4 +88,5 @@ if __name__ == "__main__":
     height = list(map(int, input("Enter heights: ").split(",")))
 
     print(f"{height} can hold {trap_brute_force(height)} water")
+    print(f"{height} can hold {trap_optimized(height)} water")
     num_test -= 1
