@@ -56,7 +56,7 @@ def trap_optimized(height):
   Time complexity: O(N)
   Space complexity: O(1)
   """
-  total_rain = 0
+  total = 0
   max_left = 0
   max_right = 0
   left = 0
@@ -68,17 +68,17 @@ def trap_optimized(height):
           if height[left] >= max_left:
               max_left = height[left]
           else:
-              total_rain = max_left - height[left]
+              total = max_left - height[left]
           left += 1
 
       else:
           if height[right] >= max_right:
               max_right = height[right]
           else:
-              total_rain = max_right - height[right]
+              total = max_right - height[right]
           right -= 1
           
-  return total_rain
+  return total
 
 
 if __name__ == "__main__":
