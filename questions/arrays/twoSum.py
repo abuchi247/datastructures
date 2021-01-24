@@ -17,6 +17,8 @@
 # [1,2,3,4], target=5
 # [1,2,3,4], target=10
 
+# https://leetcode.com/problems/two-sum/
+
 def find_two_sum_brute_force(arr, target):
   """
   Adds all pair of numbers to see if it equals the target

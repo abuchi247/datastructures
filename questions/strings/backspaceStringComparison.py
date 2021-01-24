@@ -40,55 +40,64 @@
 # "##", "ab##" -> True
 # 
 # s = "ab#c"
-# t = "ad#c"
+# t = "ad#c"  
 
-def backspaceCompare(S: str, T: str) -> bool:
-        s_iter = len(S) - 1
-        s_main = -1
-        
-        t_iter = len(T) - 1
-        t_main = -1
-        
-        s_found_hash = 0
-        t_found_hash = 0
-        
-        while s_iter >= 0 or t_iter >= 0:
-            if S[s_iter] == "#":
-                s_found_hash +=1
-                s_iter -= 1
-                continue
-            else:
-                if s_found_hash > 0:
-                    s_iter -= s_found_hash
-                    s_found_hash = 0
-                    continue
-                else:
-                    if s_iter >= 0:
-                        s_main = s_iter
-            if T[t_iter] == "#":
-                t_found_hash += 1
-                t_iter -= 1
-                continue
-            else:
-                if t_found_hash > 0:
-                    t_iter -= t_found_hash
-                    t_found_hash = 0
-                    continue
-                else:
-                    if t_iter >= 0:
-                        t_main = t_iter        
-                
-            
-            if S[s_main] != T[t_main]:
-                return False
-            
-            s_iter -= 1
-            t_iter -= 1
-                       
-        return True
+def load_stack(string):
+    stack = []
 
+    for x in string:
+        if x == "#":
+            # nothing to remove
+            if len(stack) == 0:
+                continue
+            else:   # remove previous added item
+                stack.pop()
+        else:
+            # add to stack
+            stack.append(x)
+
+    return stack
+
+def brute_force(s, t):
+    # Time Complexity: N + M
+    # Space Complexity: N + M
+    
+    s_stack = load_stack(s)
+    t_stack = load_stack(t)
+
+    # check if they both have the same length
+    if len(s_stack) != len(t_stack):
+        return False
+
+    # check all the elements
+    while len(s_stack) > 0 and len(t_stack) > 0:
+        if s_stack.pop() != t_stack.pop():
+            return False
+    return True
+    
 
 if __name__ == "__main__":
   s = "ab#c"
   t = "ad#c"
-  print(backspaceCompare(s, t))
+  print(brute_force(s, t))
+
+  s = "aaa#"
+  t = "aa#"
+  print(brute_force(s, t))
+
+  s = "a##c"
+  t = "#a#c"
+  print(brute_force(s, t))
+
+  s = "xywrrmp"
+  t = "xywrrmu#p"
+#   print(backspaceCompare(s, t))
+  print(brute_force(s, t))
+
+  s = ""
+  t = "abuc####"
+  print(brute_force(s, t))
+
+  s = "ABUC"
+  t = "abuc"
+  print(brute_force(s, t))
