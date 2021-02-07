@@ -33,27 +33,70 @@
 # 1 <= |s|,|x| <= 1000
 
 
-def strstr(s, x):
-    if len(s) == 0 or len(x) == 0:
+def strstr(haystack, needle):
+    # inputs cannot be null
+    if haystack is None or needle is None:
         return -1
 
-    if len(x) > len(s):
+    # we cannot have other data structures other than strings
+    if not isinstance(haystack, str) or not isinstance(needle, str):
         return -1
 
-    iter_count = len(x)
-    i = 0
+    # needle cannot be greater than haystack
+    if len(needle) > len(haystack):
+        return -1
 
-    while i < len(s):
-        end = i + iter_count
-        if end > len(s):
+    upper_bound = len(needle)
+    index = 0
+
+    while index < len(haystack):
+        boundary = index + upper_bound
+        if boundary > len(haystack):
             return -1
-        if s[i: end] == x:
-            return i
-        i += 1
+        
+        if haystack[index: boundary] == needle:
+            return index
+        
+        index += 1
+
+def strstr2(haystack, needle):
+    # inputs cannot be null
+    if haystack is None or needle is None:
+        return -1
+
+    # we cannot have other data structures other than strings
+    if not isinstance(haystack, str) or not isinstance(needle, str):
+        return -1
+
+    # needle cannot be greater than haystack
+    if len(needle) > len(haystack):
+        return -1
+
+    upper_bound = len(needle)
+    index = 0
+
+    while index < len(haystack):
+        i = index
+        j = 0
+        # only if the first two characters matches
+        if haystack[i] == needle[j]:
+            found = False
+            while i < len(haystack) and j < len(needle):
+                if haystack[i] == needle[j]:
+                    i += 1
+                    j += 1
+                    found = True
+                else:
+                    found = False
+                    break
+            if found:
+                return index
+
+        index += 1
     return -1
 
 
 if __name__ == "__main__":
-    print(strstr("GeeksForGeeks", "Fr"))
-    print(strstr("GeeksForGeeks", "For"))
-    print(strstr("s", "s"))
+    print(strstr2("GeeksForGeeks", "Fr"))
+    print(strstr2("GeeksForGeeks", "For"))
+    print(strstr2("s", "s"))
