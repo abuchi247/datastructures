@@ -22,11 +22,14 @@ def insertion_sol1(arr):
   return arr
 
 def insertion(arr):
-  for i in range(len(arr)-1):
-    for j in range(i+1, 0, -1):
+  # go up to the second to the last element
+  for i in range(len(arr)-1): 
+    # bubble the elements outside of the sorted sub-array to the right position
+    for j in range(i+1, 0, -1): 
       if arr[j-1] > arr[j]:
         swap(arr, j, j-1)
       else:
+        # if the element is in the right position in the sorted array then there's no sort needed
         break
     
   return arr

@@ -18,3 +18,4 @@ def fibonacci(n):
 if __name__ == "__main__":
     print(fibonacci(100))
     print("Number of cals: ", visited["count"])
+    print(fibs)
