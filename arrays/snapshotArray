@@ -1,0 +1,101 @@
+Optimized solution:
+Time complexity: O(1), Space Complexity: O(K x T)   -> k would snap_id + 1 (total number of snaps), T -> calls to set
+
+class SnapshotArray:
+
+    def __init__(self, length: int):
+        self.total_snap_calls = 0
+        # self.array = [0]*length
+        self.map = {}
+        self.snap_array = {} # N x (snap_id + 1) equivalent to NxN
+
+    def set(self, index: int, val: int) -> None:
+        """
+        Time complexity: O(1), Space complexity: O(1)
+        """
+        # if not 0 < index < len(self.array):
+        #     raise Exception("Index out of bound")
+
+        # self.array[index] = val
+        self.map[index] = val
+
+
+    def snap(self) -> int:
+        """
+        Time complexity: O(1), Space complexity: O(N)
+        """
+        self.total_snap_calls += 1
+        snap_id = self.total_snap_calls - 1
+        self.snap_array[snap_id] = self.map.copy()
+        return snap_id
+    
+        # {
+        #     0: {
+        #         0: 26
+        #     },
+        #     2: {
+        #         0: 26,
+        #         2: 50
+        #     }
+        # }
+
+
+    def get(self, index: int, snap_id: int) -> int:
+        # if not 0 < snap_id < len(self.snap_array):
+        #     raise Exception("Index out of bound")
+        # if 0 < index < len(self.snap_array[snap_id]):
+        #     raise Exception("Index out of bound")  
+        
+        if snap_id not in self.snap_array:
+            return 0
+        
+        if index not in self.snap_array[snap_id]:
+            return 0
+        
+        return self.snap_array[snap_id][index] 
+        
+
+
+# Your SnapshotArray object will be instantiated and called as such:
+# obj = SnapshotArray(length)
+# obj.set(index,val)
+# param_2 = obj.snap()
+# param_3 = obj.get(index,snap_id)
+
+
+Solution 1:
+Time complexity: O(1), Space Complexity: O(NxN)
+
+# def __init__(self, length: int):
+#     self.total_snap_calls = 0
+#     self.array = [0]*length
+#     self.snap_array = []    # N x (snap_id + 1) equivalent to NxN or can use a hash table or dictionary
+
+# def set(self, index: int, val: int) -> None:
+#     """
+#     Time complexity: O(1), Space complexity: O(1)
+#     """
+#     if not 0 < index < len(self.array):
+#         raise Exception("Index out of bound")
+    
+#     self.array[index] = val
+    
+    
+
+# def snap(self) -> int:
+#     """
+#     Time complexity: O(1), Space complexity: O(N)
+#     """
+#     self.total_snap_calls += 1
+#     self.snap_array.append(self.array)
+#     return self.total_snap_calls - 1
+    
+
+# def get(self, index: int, snap_id: int) -> int:
+#     if not 0 < snap_id < len(self.snap_array):
+#         raise Exception("Index out of bound")
+#     if not 0 < index < len(self.snap_array[snap_id]):
+#         raise Exception("Index out of bound")  
+        
+#     return self.snap_array[snap_id][index]
+    
