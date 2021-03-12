@@ -1,0 +1,27 @@
+There could be a chance of a race condition happening if they code is executed in a concurrent environment
+
+It is possible that if multiple concurrent updates happen to a single record, we may get in a situation where
+by the data gets overwritten with the last concurrent update thereby not keeping the resukts of the previous 
+updates.
+
+Hence, since we are updating multiple records, using transactions would be the way to go. With transactions,
+we will lock the rows that are being operated on. 
+
+EntityManagerFactory emf = Persistence.createEntityManagerFactory("MyPersistenceUnit");
+EntityManager em = emf.createEntityManager();
+Avenger avenger = em.find(Avenger.class,5, LockMode.PESSIMISTIC_READ);
+avenger.setStatus("Alive");
+em.save(avenger);
+
+
+// Insert a new row with value "val" into the linked list in between ids prevId and nextId.
+void update(String val, int prevId, int nextId) {
+    // Determine the id to insert with
+    int id = db.query("SELECT max(id) + 1 FROM linked_list");
+    // Insert the new row
+    db.statement("INSERT INTO linked_list (id, prev_id, next_id, val) VALUES (?, ?, ?, ?)", id, prevId, nextId, val);
+    // Update the previous row to point forward to our new row
+    db.statement("UPDATE linked_list SET next_id = ? WHERE id = ?", id, prevId);
+    // Update the next row to point backward to our new row
+    db.statement("UPDATE linked_list SET prev_id = ? WHERE id = ?", id, nextId);
+}
