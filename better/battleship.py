@@ -1,7 +1,7 @@
 
 def generate_ship_pos(pos1, pos2):
     # A1, A3
-    # same colume
+    # same column
     if pos1[0] == pos2[0]:
         if int(pos1[1]) in col_map and int(pos2[1]) in col_map:
             if abs(int(pos2[1]) - int(pos1[1])) == 2:
@@ -15,8 +15,9 @@ def generate_ship_pos(pos1, pos2):
             if abs(row_map.index(pos2[0]) - row_map.index(pos1[0])) == 2:
                 min_pos = min(pos1, pos2)
                 max_pos = max(pos1, pos2)
-                letter = row_map[row_map.index(min_pos[0]) + 1]
-                missing_pos = letter + str(min_pos[1])
+                # letter = row_map[row_map.index(min_pos[0]) + 1]
+                missing_letter = chr(ord(min_pos[0]) + 1)
+                missing_pos = missing_letter + str(min_pos[1])
                 return min_pos, missing_pos, max_pos
     return None
 
@@ -55,7 +56,7 @@ def play(playerOneShips, playerTwoGuesses):
     if len(playerOneShipInput) % 2 != 0:
         print("Invalid!")
         return
-    num_ships = len(playerOneShipInput) / 2
+    num_ships = len(playerOneShipInput) // 2
 
     # Invalid play one input. We can only enter 3 ships at max
     if len(playerOneShipInput) > 6:
@@ -63,10 +64,10 @@ def play(playerOneShips, playerTwoGuesses):
         return
 
     ships = []
-    uniqu_ships = set()
+    unique_ships = set()
 
     for x in range(0, len(playerOneShipInput), 2):
-        # print(f"{playerOneShipInput[x]}, {playerOneShipInput[x+1]}")
+        print(f"{playerOneShipInput[x]}, {playerOneShipInput[x+1]}")
         cordinates = generate_ship_pos(playerOneShipInput[x], playerOneShipInput[x+1])
         if not cordinates:
             print("Invalid!")
@@ -75,11 +76,11 @@ def play(playerOneShips, playerTwoGuesses):
 
     for ship in ships:
         for pos in ship:
-            if pos in uniqu_ships:
+            if pos in unique_ships:
                 print("Invalid")
                 return
             else:
-                uniqu_ships.add(pos)
+                unique_ships.add(pos)
 
     board = populate_board()
     from pprint import pprint
@@ -93,7 +94,7 @@ def play(playerOneShips, playerTwoGuesses):
 
         status = "miss"
 
-        if player_guess in uniqu_ships:
+        if player_guess in unique_ships:
             status = "hit"
             valid_input = update_board(board, player_guess, "hit")
         else:
