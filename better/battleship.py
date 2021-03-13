@@ -4,16 +4,20 @@ def generate_ship_pos(pos1, pos2):
     # same colume
     if pos1[0] == pos2[0]:
         if int(pos1[1]) in col_map and int(pos2[1]) in col_map:
-            if int(pos2[1]) - int(pos1[1]) == 2:
-                missing_pos = pos1[0] +  str(int(pos1[1]) + 1)
-                return pos1, missing_pos, pos2
+            if abs(int(pos2[1]) - int(pos1[1])) == 2:
+                min_pos = min(pos1, pos2)
+                max_pos = max(pos1, pos2)
+                missing_pos = min_pos[0] +  str(int(min_pos[1]) + 1)
+                return min_pos, missing_pos, max_pos
     # same row
     if pos1[1] == pos2[1]:
         if pos1[0] in row_map and pos2[0] in row_map:
-            if row_map.index(pos2[0]) - row_map.index(pos1[0]) == 2:
-                letter = row_map[row_map.index(pos1[0]) + 1]
-                missing_pos = letter + str(pos1[1])
-                return pos1, missing_pos, pos2
+            if abs(row_map.index(pos2[0]) - row_map.index(pos1[0])) == 2:
+                min_pos = min(pos1, pos2)
+                max_pos = max(pos1, pos2)
+                letter = row_map[row_map.index(min_pos[0]) + 1]
+                missing_pos = letter + str(min_pos[1])
+                return min_pos, missing_pos, max_pos
     return None
 
 
@@ -63,7 +67,11 @@ def play(playerOneShips, playerTwoGuesses):
 
     for x in range(0, len(playerOneShipInput), 2):
         # print(f"{playerOneShipInput[x]}, {playerOneShipInput[x+1]}")
-        ships.append(generate_ship_pos(playerOneShipInput[x], playerOneShipInput[x+1]))
+        cordinates = generate_ship_pos(playerOneShipInput[x], playerOneShipInput[x+1])
+        if not cordinates:
+            print("Invalid!")
+            return
+        ships.append(cordinates)
 
     for ship in ships:
         for pos in ship:
@@ -103,7 +111,7 @@ def play(playerOneShips, playerTwoGuesses):
 if __name__ == '__main__':
     row_map = ["A", "B", "C", "D", "E", "F"]
     col_map = [num for num in range(1, 7)]
-    playerOneShips = "A1 A3 D5 F5"
+    playerOneShips = "A3 A1 D5 F5 C2 A2"
 
     print(playerOneShips)
 
