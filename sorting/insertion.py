@@ -36,5 +36,15 @@ def insertion(arr):
  
 
 if __name__ == "__main__":
-  arr = [0,4,3,2,1,8]
-  print(insertion(arr))
+  # arr = [0,4,3,2,1,8]
+  # print(insertion(arr))
+  arr = [i for i in range(100000, 0, -1)]
+  from time import time
+  print("Before sorting")
+  # print(arr)
+  start = time()
+  insertion(arr)
+  end = time()
+  print("After sorting")
+  # print(arr)
+  print(f"Sorting duration: {end-start:0.3f} ms")
