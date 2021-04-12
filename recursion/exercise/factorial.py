@@ -4,11 +4,19 @@
 
 
 def fact_rec(n):
+    """
+    Time complexity: O(N)
+    Space complexity: O(N)
+    """
     if n == 0:
         return 1
     return fact_rec(n-1) * n
 
 def fact_iter(n):
+    """
+    Time complexity: O(N)
+    Space complexity: O(1)
+    """
     total = 1
 
     while n > 0:
