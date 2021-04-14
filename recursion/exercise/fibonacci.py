@@ -8,6 +8,7 @@ def fib_rec(n):
     Time complexity: O(2^n)
     Space complexity: O(2^n)
     """
+    v['count'] += 1
     if n <= 1: return n
     return fib_rec(n-1) + fib_rec(n-2)
 
@@ -30,6 +31,7 @@ def fib_opt(n):
     """
     Time complexity: O(N)
     """
+    visited['count'] += 1
     if n <= 1:
         return n
 
@@ -40,8 +42,17 @@ def fib_opt(n):
 
 
 if __name__ == "__main__":
-    print(fib_rec(7))
-    print(fib_iter(7))
+    v = {
+        "count": 0
+    }
+    print(fib_rec(10))
+    print(v)
+    print(fib_iter(10))
 
     lookup = {}
-    print(fib_opt(7))
+    visited = {
+        "count": 0
+    }
+    print(fib_opt(10))
+
+    print(visited)
