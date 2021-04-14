@@ -26,6 +26,22 @@ def fib_iter(n):
     return a
 
 
+def fib_opt(n):
+    """
+    Time complexity: O(N)
+    """
+    if n <= 1:
+        return n
+
+    if n in lookup:
+        return lookup[n]
+    lookup[n] = fib_opt(n-1) + fib_opt(n-2)
+    return lookup[n]
+
+
 if __name__ == "__main__":
     print(fib_rec(7))
     print(fib_iter(7))
+
+    lookup = {}
+    print(fib_opt(7))
