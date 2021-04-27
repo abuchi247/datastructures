@@ -14,16 +14,15 @@ def binary_search_iter(arr, target):
 
 
 def binary_search_rec(arr, low, high, target):
-    if low > high:
-        return -1
-
-    mid = (low + high) // 2
-    if arr[mid] == target:
-        return mid
-    elif arr[mid] > target:
-        return binary_search_rec(arr, low, mid-1, target)
-    else:
-        return binary_search_rec(arr, mid+1, high, target)
+    if low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] > target:
+            return binary_search_rec(arr, low, mid-1, target)
+        else:
+            return binary_search_rec(arr, mid+1, high, target)
+    return -1
 
 
 if __name__ == "__main__":
