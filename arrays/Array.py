@@ -158,21 +158,6 @@ class Array:
         return total
 
 
-def shift_left_rotate(arr, shifts):
-    if len(arr) <= 1:
-        return
-
-    for _ in range(shifts):
-        shift_left(arr)
-
-
-def shift_left(arr):
-    temp = arr[0]
-    for i in range(1, len(arr)):
-        arr[i-1] = arr[i]
-    arr[len(arr) - 1] = temp
-
-
 if __name__ == "__main__":
     arr = Array()
     arr.add(1)
@@ -189,7 +174,3 @@ if __name__ == "__main__":
     print(arr.max())
     print(arr.sum())
     print(arr.avg())
-
-    arr.display()
-    shift_left_rotate(arr.data, 2)
-    arr.display()
