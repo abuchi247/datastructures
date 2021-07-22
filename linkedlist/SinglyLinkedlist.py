@@ -15,6 +15,7 @@ class SinglyLinkedList:
         while cur is not None:
             print(cur.data, end=" ")
             cur = cur.next
+        print()
 
     def append(self, data):
         new_node = Node(data)
@@ -76,6 +77,28 @@ class SinglyLinkedList:
             return 0
 
         return self.count_rec_2(first.next) + 1
+
+    def insert(self, nth, value):
+        if nth < 0:
+            print(f"Invalid index {nth}")
+            return
+
+        index = 0
+        cur = self.head
+        prev = None
+        new_node = Node(value)
+
+        while cur is not None and index != nth:
+            index += 1
+            prev = cur
+            cur = cur.next
+
+        if prev is None:
+            new_node.next = self.head
+            self.head = new_node
+        else:
+            prev.next = new_node
+            new_node.next = cur
 
 
 def sum_nodes_iter(head):
@@ -166,3 +189,9 @@ if __name__ == "__main__":
     print(f"Max element: {find_max_rec(my_list.head)}")
     print(f"Search iter: {search_iter(my_list.head, 10)}")
     print(f"Search rec: {search_rec(my_list.head, 10)}")
+    my_list.display_iter(my_list.head)
+    my_list.insert(8, 20)
+    my_list.insert(0, 21)
+    my_list.insert(4, 22)
+    my_list.insert(10, 25)
+    my_list.display_iter(my_list.head)
