@@ -7,6 +7,8 @@ class Node:
 class SinglyLinkedList:
     def __init__(self):
         self.head = None
+        self.tail = None
+        self.size = 0
 
     @staticmethod
     def display_iter(first):
@@ -21,13 +23,15 @@ class SinglyLinkedList:
         new_node = Node(data)
 
         if self.head is None:
-            self.head = new_node
+            self.head = self.tail = new_node
         else:
             cur = self.head
             while cur.next is not None:
                 cur = cur.next
 
             cur.next = new_node
+            self.tail = new_node
+        self.size += 1
 
     @classmethod
     def display_rec(cls, first):
@@ -41,6 +45,13 @@ class SinglyLinkedList:
             return
         print(first.data, end=" ")
         cls.display_rec(first.next)
+
+    def count_opt(self):
+        """
+        Time complexity: O(1)
+        Space complexity: O(1)
+        """
+        return self.size
 
     def count_iter(self):
         """
@@ -95,10 +106,30 @@ class SinglyLinkedList:
 
         if prev is None:
             new_node.next = self.head
-            self.head = new_node
+            if self.head is None:
+                self.tail = self.head = new_node
+            else:
+                self.head = new_node
         else:
             prev.next = new_node
             new_node.next = cur
+
+            if cur is None:
+                self.tail = new_node
+        self.size += 1
+
+    def insert_last(self, value):
+        """
+        Time complexity: O(1)
+        Space complexity: O(1)
+        """
+        new_node = Node(value)
+        if self.head is None:
+            self.head = self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self.size += 1
 
 
 def sum_nodes_iter(head):
@@ -156,7 +187,6 @@ def search_iter(head, target):
         if cur.data == target:
             return cur
         cur = cur.next
-
     return None
 
 
@@ -166,15 +196,14 @@ def search_rec(head, target):
 
     if head.data == target:
         return head
-
     return search_iter(head.next, target)
 
 
 if __name__ == "__main__":
     A = [10, 2, 3, 4, 5, 0]
     my_list = SinglyLinkedList()
-    for num in A:
-        my_list.append(num)
+    # for num in A:
+    #     my_list.append(num)
 
     # my_list.display_iter(my_list.head)
     my_list.display_rec(my_list.head)
@@ -191,7 +220,13 @@ if __name__ == "__main__":
     print(f"Search rec: {search_rec(my_list.head, 10)}")
     my_list.display_iter(my_list.head)
     my_list.insert(8, 20)
+    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
     my_list.insert(0, 21)
+    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
     my_list.insert(4, 22)
+    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
     my_list.insert(10, 25)
+    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
+    my_list.insert_last(50)
+    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
     my_list.display_iter(my_list.head)
