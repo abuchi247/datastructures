@@ -367,6 +367,35 @@ def search_rec(head, target):
     return search_iter(head.next, target)
 
 
+def concatenate_list(a_head, b_head):
+    new_head = None
+    new_tail = None
+
+    # adding first list
+    while a_head is not None:
+        if new_tail is None and new_tail is None:
+            new_head = new_tail = a_head
+        else:
+            new_tail.next = a_head
+            new_tail = a_head
+        next = a_head.next
+        a_head.next = None
+        a_head = next
+
+    #   add the second list
+    while b_head is not None:
+        if new_tail is None and new_tail is None:
+            new_tail = new_tail = b_head
+        else:
+            new_tail.next = b_head
+            new_tail = b_head
+        next = b_head.next
+        b_head.next = None
+        b_head = next
+
+    return new_head
+
+
 if __name__ == "__main__":
     A = [10, 2, 3, 4, 5, 0]
     my_list = SinglyLinkedList()
@@ -431,3 +460,7 @@ if __name__ == "__main__":
     # my_list.reverse_iter_slow()
     my_list.display_iter(my_list.head)
     print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
+
+    concated_list = concatenate_list(my_list.head, None)
+    SinglyLinkedList.display_iter(concated_list)
+    SinglyLinkedList.display_iter(my_list.head)
