@@ -408,62 +408,51 @@ def concatenate_list(list_a, list_b):
         cur.next = None
         cur = next
 
-    cur = list_b.head
-    prev = None
-    # adding first list
-    while cur is not None:
-        if new_head is None and new_tail is None:
-            new_head = new_tail = cur
-        else:
-            new_tail.next = cur
-            new_tail = cur
-        next = cur.next
-        cur.next = None
-        cur = next
+    new_tail.next = list_b.head
+    list_b.head = None
 
     return new_head
 
 
-def merge_list(list_a, list_b):
+def merge_list(first, second):
     """
     Time complexity: O(M+N)
     Space complexity: O(1)
     """
-    if list_a.head is None:
-        return list_b.head
+    if first.head is None:
+        return second.head
 
-    if list_b.head is None:
-        return list_a.head
+    if second.head is None:
+        return first.head
 
-    first = list_a.head
-    second = list_b.head
-
-    if first.data < second.data:
-        third = last = first
-        first = first.next
+    if first.head.data < second.head.data:
+        third = last = first.head
+        first.head = first.head.next
         last.next = None
     else:
-        third = last = second
-        second = second.next
+        third = last = second.head
+        second.head = second.head.next
         last.next = None
 
     # adding first list
-    while first is not None and second is not None:
-        if first.data < second.data:
-            last.next = first
-            last = first
-            first = first.next
+    while first.head is not None and second.head is not None:
+        if first.head.data < second.head.data:
+            last.next = first.head
+            last = first.head
+            first.head = first.head.next
             last.next = None
         else:
-            last.next = second
-            last = second
-            second = second.next
+            last.next = second.head
+            last = second.head
+            second.head = second.head.next
             last.next = None
 
-    if first is not None:
-        last.next = first
+    if first.head is not None:
+        last.next = first.head
+        first.head = None
     else:
-        last.next = second
+        last.next = second.head
+        second.head = None
 
     return third
 
@@ -544,10 +533,16 @@ if __name__ == "__main__":
 
     SinglyLinkedList.display_iter(list1.head)
     SinglyLinkedList.display_iter(list2.head)
+    # new_list = concatenate_list(list1, list2)
+    # print("Printing new list")
+    # SinglyLinkedList.display_iter(new_list)
+    # print("Printing individual list")
+    # SinglyLinkedList.display_iter(list1.head)
+    # SinglyLinkedList.display_iter(list2.head)
     new_list = merge_list(list1, list2)
     print("Printing new list")
     SinglyLinkedList.display_iter(new_list)
     print("Printing individual list")
     SinglyLinkedList.display_iter(list1.head)
     SinglyLinkedList.display_iter(list2.head)
-    # list2.delete_list()
+    # # list2.delete_list()
