@@ -199,6 +199,20 @@ class SinglyLinkedList:
                     self.tail = prev
             self.size -= 1
 
+    def delete_list(self):
+        """
+        Deletes all the elements in a linked list
+
+        Big O(N) linear time as it removes the entire elements in the linked list
+        :return:
+        """
+
+        while self.head is not None:
+            print(f"Freeing: {self.head.data}")
+            next = self.head.next  # get the value of the next pointer
+            self.head.next = None  # set the next pointer to None
+            self.head = next  # set head to the next pointer
+
     def is_sorted(self):
         """
         Checks if the linked list is sorted or not
@@ -367,33 +381,91 @@ def search_rec(head, target):
     return search_iter(head.next, target)
 
 
-def concatenate_list(a_head, b_head):
+def concatenate_list(list_a, list_b):
+    """
+    Time complexity: O(M+N)
+    Space complexity: O(1)
+    """
     new_head = None
     new_tail = None
 
-    # adding first list
-    while a_head is not None:
-        if new_tail is None and new_tail is None:
-            new_head = new_tail = a_head
-        else:
-            new_tail.next = a_head
-            new_tail = a_head
-        next = a_head.next
-        a_head.next = None
-        a_head = next
+    if list_a.head is None:
+        return list_b.head
 
-    #   add the second list
-    while b_head is not None:
-        if new_tail is None and new_tail is None:
-            new_tail = new_tail = b_head
+    if list_b.head is None:
+        return list_a.head
+
+    cur = list_a.head
+
+    # adding first list
+    while cur is not None:
+        if new_head is None and new_tail is None:
+            new_head = new_tail = cur
         else:
-            new_tail.next = b_head
-            new_tail = b_head
-        next = b_head.next
-        b_head.next = None
-        b_head = next
+            new_tail.next = cur
+            new_tail = cur
+        next = cur.next
+        cur.next = None
+        cur = next
+
+    cur = list_b.head
+    prev = None
+    # adding first list
+    while cur is not None:
+        if new_head is None and new_tail is None:
+            new_head = new_tail = cur
+        else:
+            new_tail.next = cur
+            new_tail = cur
+        next = cur.next
+        cur.next = None
+        cur = next
 
     return new_head
+
+
+def merge_list(list_a, list_b):
+    """
+    Time complexity: O(M+N)
+    Space complexity: O(1)
+    """
+    if list_a.head is None:
+        return list_b.head
+
+    if list_b.head is None:
+        return list_a.head
+
+    first = list_a.head
+    second = list_b.head
+
+    if first.data < second.data:
+        third = last = first
+        first = first.next
+        last.next = None
+    else:
+        third = last = second
+        second = second.next
+        last.next = None
+
+    # adding first list
+    while first is not None and second is not None:
+        if first.data < second.data:
+            last.next = first
+            last = first
+            first = first.next
+            last.next = None
+        else:
+            last.next = second
+            last = second
+            second = second.next
+            last.next = None
+
+    if first is not None:
+        last.next = first
+    else:
+        last.next = second
+
+    return third
 
 
 if __name__ == "__main__":
@@ -461,6 +533,21 @@ if __name__ == "__main__":
     my_list.display_iter(my_list.head)
     print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
 
-    concated_list = concatenate_list(my_list.head, None)
-    SinglyLinkedList.display_iter(concated_list)
-    SinglyLinkedList.display_iter(my_list.head)
+    list1 = SinglyLinkedList()
+    list2 = SinglyLinkedList()
+    list1.append(1)
+    list1.append(3)
+    list1.append(5)
+    list2.append(2)
+    list2.append(4)
+    list2.append(6)
+
+    SinglyLinkedList.display_iter(list1.head)
+    SinglyLinkedList.display_iter(list2.head)
+    new_list = merge_list(list1, list2)
+    print("Printing new list")
+    SinglyLinkedList.display_iter(new_list)
+    print("Printing individual list")
+    SinglyLinkedList.display_iter(list1.head)
+    SinglyLinkedList.display_iter(list2.head)
+    # list2.delete_list()
