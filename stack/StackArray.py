@@ -1,12 +1,19 @@
+class StackUnderFlow(Exception):
+    pass
+
+
+class StackOverFlow(Exception):
+    pass
+
+
 class StackArray:
 
-    MAX_CAPACITY = 2
+    MAX_CAPACITY = 5
 
     def __init__(self):
-        self.data = [None] * StackArray.MAX_CAPACITY
+        self.data = [None] * self.MAX_CAPACITY
         self.size = 0
         self.top = -1
-
 
     def is_empty(self):
         """
@@ -16,7 +23,14 @@ class StackArray:
         """
         return self.size == 0
 
-    
+    def is_full(self):
+        """
+        Checks if the stack is full
+
+        Big O(1)
+        """
+        return self.size == len(self.data)
+
     def peek(self):
         """
         Gets the top element in the stack
@@ -24,22 +38,20 @@ class StackArray:
         Big O(1)
         """
         if self.is_empty():
-            print("Stack is empty")
-            return
+            raise StackUnderFlow("Stack is empty")
 
         return self.data[self.top]
 
-    
     def pop(self):
         """
-        Removes top item in the stack
+        Remove the element on top of the stack
 
         Big O(1)
         """
+        # check if the stack is empty
         if self.is_empty():
-            print("Stack is empty")
-            return
-        
+            raise StackUnderFlow("Stack is empty")
+
         # get the top item
         top_item = self.data[self.top]
         # clear the item in the top position
@@ -66,7 +78,6 @@ class StackArray:
         self.top = avail
         self.size += 1
 
-
     def _resize(self, new_capacity):
         """
         Resize the underlying array by doubling the array capacity
@@ -75,7 +86,6 @@ class StackArray:
         """
         StackArray.MAX_CAPACITY = new_capacity # set the max capacity to the new capacity
         new_arr = [None] * new_capacity
-
 
         for i in range(self.size):
             new_arr[i] = self.data[i]

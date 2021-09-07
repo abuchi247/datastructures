@@ -1,3 +1,11 @@
+class StackOverFlow(Exception):
+    pass
+
+
+class StackUnderFlow(Exception):
+    pass
+
+
 class Node:
     __slots__ = "data", "next"
 
@@ -17,9 +25,11 @@ class StackLinkedList:
     get_length() - gets the number of elements in a stack
     """
 
+    MAX_SIZE = 10
+
     def __init__(self):
         self.top = None
-        self.length = 0
+        self.size = 0
 
     def get_length(self):
         """
@@ -27,7 +37,7 @@ class StackLinkedList:
 
         Big O(1)
         """
-        return self.length
+        return self.size
 
     def is_empty(self):
         """
@@ -36,6 +46,13 @@ class StackLinkedList:
         """
         return self.top is None
 
+    def is_full(self):
+        """
+        Checks if a stack is full
+        Big O(1)
+        """
+        return self.size == self.MAX_SIZE
+
     def peek(self):
         """
         Returns the top item in the stack
@@ -43,9 +60,9 @@ class StackLinkedList:
         Big O(1)
         """
         if self.is_empty():
-            print("Stack is empty")
-            return
-        return self.top
+            raise StackUnderFlow("Stack is empty")
+
+        return self.top.data
 
     def push(self, item):
         """
@@ -53,11 +70,13 @@ class StackLinkedList:
 
         Big O(1)
         """
-        new_node = Node(item)
+        if self.is_full():
+            raise StackOverFlow("Stack is already full")
 
+        new_node = Node(item)
         new_node.next = self.top    # make new node to point to the old top item
         self.top = new_node # set the top item to be new node
-        self.length += 1    # increment the count of items in stack
+        self.size += 1    # increment the count of items in stack
 
     def pop(self):
         """
@@ -66,14 +85,12 @@ class StackLinkedList:
         """
         # check if stack is empty
         if self.is_empty():
-            print("Stack is empty")
-            return
+            raise StackUnderFlow("Stack is empty")
 
         top_node = self.top
-
         self.top = self.top.next    # set the top node to the next node
-        self.length -= 1    # decrement the size of the stack
-        return top_node # node removed
+        self.size -= 1    # decrement the size of the stack
+        return top_node.data # node removed
 
     def print_all(self):
         """
@@ -97,7 +114,10 @@ if __name__ == '__main__':
     stack.push(12)
     stack.push(14)
     stack.push(10)
-    print(stack.peek().data)
+    stack.push(10)
+    print(stack.peek())
+    print(stack.is_full())
+    print(stack.is_empty())
     stack.print_all()
 
 

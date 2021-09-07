@@ -125,7 +125,6 @@ class LinkedList:
             self.head.next = None   # set the next pointer to None
             self.head = next        # set head to the next pointer
 
-
     def insert_nth(self, data, nth):
         """
         Inserts data at the nth position in the linked list
@@ -164,7 +163,6 @@ class LinkedList:
             prev.next = new_node
             new_node.next = cur
         return
-
 
     def sorted_insert(self, data):
         """

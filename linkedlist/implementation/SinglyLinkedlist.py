@@ -457,11 +457,61 @@ def merge_list(first, second):
     return third
 
 
+def find_middle_slow(head):
+    """
+    Time complexity: O(n)
+    Space complexity: O(1)
+    """
+    count = 0
+    cur = head
+
+    while cur is not None:
+        count += 1
+        cur = cur.next
+
+    # find the middle element
+    cur2 = head
+    index = 0
+
+    if count % 2 == 0:
+        mid = count / 2 - 1
+    else:
+        mid = count // 2
+
+    while index < mid:
+        cur2 = cur2.next
+        index += 1
+    return cur2
+
+
+def find_middle_fast(head):
+    """
+    Time complexity: O(N)
+    Space complexity: O(1)
+    """
+    fast = head
+    slow = head
+
+    while fast is not None:
+        fast = fast.next
+
+        if fast is None:
+            break
+
+        fast = fast.next
+
+        if fast is None:
+            break
+        slow = slow.next
+
+    return slow
+
+
 if __name__ == "__main__":
-    A = [10, 2, 3, 4, 5, 0]
+    A = [10, 2, 3]
     my_list = SinglyLinkedList()
-    # for num in A:
-    #     my_list.append(num)
+    for num in A:
+        my_list.append(num)
     #
     # # my_list.display_iter(my_list.head)
     # my_list.display_rec(my_list.head)
@@ -497,52 +547,56 @@ if __name__ == "__main__":
     # my_list.insert_sorted(3)
     # my_list.display_iter(my_list.head)
     # print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
-    my_list.insert(5, 12)
-    my_list.insert(1, 2)
-    my_list.insert(9, 3)
-    my_list.insert_sorted(2)
-    # my_list.insert_sorted(20)
-    # my_list.delete(3)
-    # # my_list.delete(22)
+    # my_list.insert(5, 12)
+    # my_list.insert(1, 2)
+    # my_list.insert(9, 3)
+    # my_list.insert_sorted(2)
+    # # my_list.insert_sorted(20)
+    # # my_list.delete(3)
+    # # # my_list.delete(22)
+    # # my_list.display_iter(my_list.head)
+    # # print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
+    # # print(my_list.is_sorted())
+    # my_list.insert_sorted(2)
+    # my_list.insert_sorted(2)
+    # my_list.insert_sorted(3)
+    # my_list.insert_sorted(4)
     # my_list.display_iter(my_list.head)
     # print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
-    # print(my_list.is_sorted())
-    my_list.insert_sorted(2)
-    my_list.insert_sorted(2)
-    my_list.insert_sorted(3)
-    my_list.insert_sorted(4)
-    my_list.display_iter(my_list.head)
-    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
-    my_list.remove_duplicate()
-    my_list.display_iter(my_list.head)
-    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
-    # my_list.reverse_iter()
-    my_list.reverse_rec(my_list.head)
-    # my_list.reverse_iter_slow()
-    my_list.display_iter(my_list.head)
-    print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
-
-    list1 = SinglyLinkedList()
-    list2 = SinglyLinkedList()
-    list1.append(1)
-    list1.append(3)
-    list1.append(5)
-    list2.append(2)
-    list2.append(4)
-    list2.append(6)
-
-    SinglyLinkedList.display_iter(list1.head)
-    SinglyLinkedList.display_iter(list2.head)
-    # new_list = concatenate_list(list1, list2)
+    # my_list.remove_duplicate()
+    # my_list.display_iter(my_list.head)
+    # print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
+    # # my_list.reverse_iter()
+    # my_list.reverse_rec(my_list.head)
+    # # my_list.reverse_iter_slow()
+    # my_list.display_iter(my_list.head)
+    # print(f"head: {my_list.head.data}, tail: {my_list.tail.data}, size: {my_list.size}")
+    #
+    # list1 = SinglyLinkedList()
+    # list2 = SinglyLinkedList()
+    # list1.append(1)
+    # list1.append(3)
+    # list1.append(5)
+    # list2.append(2)
+    # list2.append(4)
+    # list2.append(6)
+    #
+    # SinglyLinkedList.display_iter(list1.head)
+    # SinglyLinkedList.display_iter(list2.head)
+    # # new_list = concatenate_list(list1, list2)
+    # # print("Printing new list")
+    # # SinglyLinkedList.display_iter(new_list)
+    # # print("Printing individual list")
+    # # SinglyLinkedList.display_iter(list1.head)
+    # # SinglyLinkedList.display_iter(list2.head)
+    # new_list = merge_list(list1, list2)
     # print("Printing new list")
     # SinglyLinkedList.display_iter(new_list)
     # print("Printing individual list")
     # SinglyLinkedList.display_iter(list1.head)
     # SinglyLinkedList.display_iter(list2.head)
-    new_list = merge_list(list1, list2)
-    print("Printing new list")
-    SinglyLinkedList.display_iter(new_list)
-    print("Printing individual list")
-    SinglyLinkedList.display_iter(list1.head)
-    SinglyLinkedList.display_iter(list2.head)
-    # # list2.delete_list()
+    # # # list2.delete_list()
+
+    SinglyLinkedList.display_iter(my_list.head)
+    print(find_middle_slow(my_list.head).data)
+    print(find_middle_fast(my_list.head).data)

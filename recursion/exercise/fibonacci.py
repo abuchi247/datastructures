@@ -45,9 +45,9 @@ if __name__ == "__main__":
     v = {
         "count": 0
     }
-    print(fib_rec(10))
+    print(fib_rec(2))
     print(v)
-    print(fib_iter(10))
+    print(fib_iter(5))
 
     lookup = {}
     visited = {
