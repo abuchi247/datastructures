@@ -15,6 +15,8 @@
 # 8. Card is found in the middle
 # 9. Cards only contain one element
 
+import time
+
 tests = [
     {
         "input": {
@@ -96,7 +98,7 @@ tests = [
 ]
 
 
-def find_card_position(cards, start, end, query):
+def find_card_position_optimal(cards, start, end, query):
     """
     Using a binary search algorithm, locate the position of the query in the cards array
     """
@@ -111,26 +113,65 @@ def find_card_position(cards, start, end, query):
     return -1 # not found
 
 
-def locate_card(cards, query):
+def locate_card_linear(cards, query):
+    for index in range(len(cards)):
+        if cards[index] == query:
+            return index
+    return -1
+
+
+def locate_card_binary(cards, query):
     """
     Locate the position of the card in the cards list
     :param: cards: cards list
     "param: query: card to be found
     :return: position of the card, -1 if not found
     """
-    card_position = find_card_position(cards, 0, len(cards) - 1, query)
+    card_position = find_card_position_optimal(cards, 0, len(cards) - 1, query)
 
     # if there are multiple occurance of the card, we want to locate the first one
     while card_position > 0 and cards[card_position - 1] == query:
-        card_position = find_card_position(cards, 0, card_position-1, query)
+        card_position = find_card_position_optimal(cards, 0, card_position-1, query)
     return card_position
 
 
-def evaluate(num1, num2):
-    result = "PASS" if num1 == num2 else "FAIL"
+def evaluate_test_case(func, arguments):
+    """
+    Evaluates test case using the function passed in
+    """
+    if not isinstance(arguments, dict):
+        raise Exception("Argument must be a dictionary")
+
+    if 'input' not in arguments.keys():
+        raise Exception("Argument must have an input key")
+
+    if 'output' not in arguments.keys():
+        raise Exception("Argument must have an output key")
+
+    for k in ['cards', 'query']:
+        if k not in arguments.get('input').keys():
+            raise Exception(f"input must have {k}")
+
+    print("Input:")
+    print(arguments.get('input'))
+
+    print('Expected Output')
+    print(arguments.get('output'))
+
+    start = time.time()
+    result = func(**arguments.get('input'))
+    end = time.time()
+
+    print('Actual Output')
     print(result)
 
+    print("Execution Time:")
+    print(f"{end-start:.4f} ms")
+
+    print("Test Result:")
+    message = "PASSED" if result == arguments['output'] else "FAILED"
 
 if __name__ == "__main__":
     for test in tests:
-        evaluate(locate_card(**test['input']), test['output'])
+        evaluate_test_case(locate_card_linear, test)
+        evaluate_test_case(locate_card_binary, test)
