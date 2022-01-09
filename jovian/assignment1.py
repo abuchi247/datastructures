@@ -94,6 +94,13 @@ tests = [
             "query": 4
         },
         "output": -1
+    },
+    {
+        "input": {
+            "cards": [x for x in range(10000000, 0, -1)],
+            "query": 1
+        },
+        "output": 9999999
     }
 ]
 
@@ -152,8 +159,8 @@ def evaluate_test_case(func, arguments):
         if k not in arguments.get('input').keys():
             raise Exception(f"input must have {k}")
 
-    print("Input:")
-    print(arguments.get('input'))
+    # print("Input:")
+    # print(arguments.get('input'))
 
     print('Expected Output')
     print(arguments.get('output'))
@@ -166,7 +173,7 @@ def evaluate_test_case(func, arguments):
     print(result)
 
     print("Execution Time:")
-    print(f"{end-start:.4f} ms")
+    print(f"{end-start:.5f} ms")
 
     print("Test Result:")
     message = "PASSED" if result == arguments['output'] else "FAILED"
@@ -174,23 +181,10 @@ def evaluate_test_case(func, arguments):
 
 
 # INSTRUCTOR SOLUTION
-def test_location(cards, query, mid):
-    if cards[mid] == query:
-        if mid - 1 >= 0 and cards[mid-1] == query:
-            return "left"
-        else:
-            return "right"
-    elif cards[mid] < query:
-        return "left"
-    else:
-        return "right"
-
-
-def locate_card(cards, query):
-    lo, hi = 0, len(cards) - 1
+def binary_search(lo, hi, condition):
     while lo <= hi:
         mid = (lo + hi) // 2
-        result = test_location(cards, query, mid)
+        result = condition(mid)
         if result == "found":
             return mid
         elif result == "left":
@@ -200,8 +194,26 @@ def locate_card(cards, query):
     return -1
 
 
+def locate_card(cards, query):
+    def condition(mid):
+        if cards[mid] == query:
+            if mid - 1 >= 0 and cards[mid - 1] == query:
+                return "left"
+            else:
+                return "found"
+        elif cards[mid] < query:
+            return "left"
+        else:
+            return "right"
+
+    return binary_search(0, len(cards)-1, condition)
+
+
 if __name__ == "__main__":
-    for test in tests:
-        evaluate_test_case(locate_card_linear, test)
-        evaluate_test_case(locate_card_binary, test)
-        evaluate_test_case(locate_card, test)
+    # for test in tests:
+    #     evaluate_test_case(locate_card_linear, test)
+    #     evaluate_test_case(locate_card_binary, test)
+    #     evaluate_test_case(locate_card, test)
+    evaluate_test_case(locate_card_linear, tests[-1])
+    evaluate_test_case(locate_card_binary, tests[-1])
+    evaluate_test_case(locate_card, tests[-1])
