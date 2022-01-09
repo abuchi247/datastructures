@@ -1,4 +1,3 @@
-
 def generate_ship_pos(pos1, pos2):
     # A1, A3
     # same column
@@ -7,7 +6,7 @@ def generate_ship_pos(pos1, pos2):
             if abs(int(pos2[1]) - int(pos1[1])) == 2:
                 min_pos = min(pos1, pos2)
                 max_pos = max(pos1, pos2)
-                missing_pos = min_pos[0] +  str(int(min_pos[1]) + 1)
+                missing_pos = min_pos[0] + str(int(min_pos[1]) + 1)
                 return min_pos, missing_pos, max_pos
     # same row
     if pos1[1] == pos2[1]:
@@ -46,6 +45,7 @@ def update_board(board, pos, action):
         board[row][col] = 'O'
         return 0
 
+
 def play(playerOneShips, playerTwoGuesses):
     # Write your code here
 
@@ -67,8 +67,8 @@ def play(playerOneShips, playerTwoGuesses):
     unique_ships = set()
 
     for x in range(0, len(playerOneShipInput), 2):
-        print(f"{playerOneShipInput[x]}, {playerOneShipInput[x+1]}")
-        cordinates = generate_ship_pos(playerOneShipInput[x], playerOneShipInput[x+1])
+        print(f"{playerOneShipInput[x]}, {playerOneShipInput[x + 1]}")
+        cordinates = generate_ship_pos(playerOneShipInput[x], playerOneShipInput[x + 1])
         if not cordinates:
             print("Invalid!")
             return
@@ -125,7 +125,6 @@ if __name__ == '__main__':
     for _ in range(playerTwoGuesses_count):
         playerTwoGuesses_item = inputs[_]
         playerTwoGuesses.append(playerTwoGuesses_item)
-
 
     # play(playerOneShips, playerTwoGuesses)
     play(playerOneShips, playerTwoGuesses)

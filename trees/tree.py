@@ -25,6 +25,7 @@ class Tree:
     def bfs_traversal(root):
         pass
 
+
 if __name__ == "__main__":
     tree = Tree()
     tree.insert_left(tree.root, Node("A"))
