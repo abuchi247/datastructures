@@ -170,8 +170,38 @@ def evaluate_test_case(func, arguments):
 
     print("Test Result:")
     message = "PASSED" if result == arguments['output'] else "FAILED"
+    print(message)
+
+
+# INSTRUCTOR SOLUTION
+def test_location(cards, query, mid):
+    if cards[mid] == query:
+        if mid - 1 >= 0 and cards[mid-1] == query:
+            return "left"
+        else:
+            return "right"
+    elif cards[mid] < query:
+        return "left"
+    else:
+        return "right"
+
+
+def locate_card(cards, query):
+    lo, hi = 0, len(cards) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        result = test_location(cards, query, mid)
+        if result == "found":
+            return mid
+        elif result == "left":
+            hi = mid - 1
+        else:
+            lo = mid + 1
+    return -1
+
 
 if __name__ == "__main__":
     for test in tests:
         evaluate_test_case(locate_card_linear, test)
         evaluate_test_case(locate_card_binary, test)
+        evaluate_test_case(locate_card, test)
