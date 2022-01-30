@@ -1,3 +1,5 @@
+import copy
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -56,17 +58,88 @@ class StackWithLinkedList:
             cur = cur.next
         print("None")
 
+    def delete_all(self):
+        while self.top is not None:
+            print(f"Freeing: {self.top.data}")
+            next = self.top.next
+            self.top.next = None
+            del self.top
+            self.top = next
+
+    def insert_nth(self, data, nth):
+        new_node = Node(data)
+        index = 0
+        prev = None
+        cur = self.top
+
+        while cur is not None and index < nth:
+            prev = cur
+            cur = cur.next
+            index += 1
+        # insert at the beginning
+        if prev is None:
+            self.top = new_node
+        else:
+            prev.next = new_node
+        new_node.next = cur
+        self.size += 1
+
+    def insert_sorted(self, data):
+        new_node = Node(data)
+        prev = None
+        cur = self.top
+
+        while cur is not None and cur.data < data:
+            prev = cur
+            cur = cur.next
+
+        if prev is None:
+            self.top = new_node
+        else:
+            prev.next = new_node
+        new_node.next = cur
+
 
 if __name__ == "__main__":
     s = StackWithLinkedList()
+    # s.display()
+    # s.push(3)
+    # s.push(4)
+    # s.push(5)
+    # s.display()
+    # s.pop()
+    # s.display()
+    # s.pop()
+    # s.display()
+    # s.push(2)
+    # s.display()
+    #
+    # for x in range(10):
+    #     s.push(x**2)
+    #
+    # s.display()
+    # s.delete_all()
+    # print(s.top)
+    # s.display()
+    #
+    # s.insert_nth(1, 5)
+    # s.display()
+    # s.insert_nth(2, 11)
+    # s.display()
+    # s.insert_nth(2, -11)
+    # s.display()
+    # s.insert_nth(20, 1)
+    # s.display()
+    # s.insert_nth(50, 3)
+    # s.display()
+
+    s.insert_sorted(4)
     s.display()
-    s.push(3)
-    s.push(4)
-    s.push(5)
+    s.insert_sorted(10)
     s.display()
-    s.pop()
+    s.insert_sorted(2)
     s.display()
-    s.pop()
+    s.insert_sorted(5)
     s.display()
-    s.push(2)
+    s.insert_sorted(20)
     s.display()
