@@ -100,6 +100,23 @@ class StackWithLinkedList:
         new_node.next = cur
 
 
+    def remove_duplicates(self):
+        if self.is_empty():
+            return
+
+        prev = self.top
+        cur = self.top.next
+
+        while cur is not None:
+            if prev.data == cur.data:
+                prev.next = cur.next
+                cur.next = None
+                cur = prev.next
+                continue
+            prev = cur
+            cur = cur.next
+
+
 if __name__ == "__main__":
     s = StackWithLinkedList()
     # s.display()
@@ -133,13 +150,21 @@ if __name__ == "__main__":
     # s.insert_nth(50, 3)
     # s.display()
 
-    s.insert_sorted(4)
-    s.display()
-    s.insert_sorted(10)
-    s.display()
-    s.insert_sorted(2)
-    s.display()
-    s.insert_sorted(5)
-    s.display()
-    s.insert_sorted(20)
+    # s.insert_sorted(4)
+    # s.display()
+    # s.insert_sorted(10)
+    # s.display()
+    # s.insert_sorted(2)
+    # s.display()
+    # s.insert_sorted(5)
+    # s.display()
+    # s.insert_sorted(20)
+    # s.display()
+    s.push(1)
+    s.push(1)
+    # s.insert_nth(2, 33)
+    # s.insert_nth(2, 33)
+    # s.insert_nth(2, 33)
+    # s.insert_nth(3, 33)
+    s.remove_duplicates()
     s.display()
