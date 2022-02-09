@@ -116,6 +116,26 @@ class StackWithLinkedList:
             prev = cur
             cur = cur.next
 
+def merge_sorted_list(lista, listb, listc):
+    while lista is not None and listb is not None:
+        if lista.data < listb.data:
+            listc.push(lista.data)
+            lista = lista.next
+        else:
+            listc.push(listb.data)
+            listb = listb.next
+
+    while lista is not None:
+        listc.push(lista.data)
+        lista = lista.next
+
+    while listb is not None:
+        listc.push(listb.data)
+        listb = listb.next
+
+    return listc
+
+
 
 if __name__ == "__main__":
     s = StackWithLinkedList()
@@ -160,11 +180,25 @@ if __name__ == "__main__":
     # s.display()
     # s.insert_sorted(20)
     # s.display()
-    s.push(1)
-    s.push(1)
-    # s.insert_nth(2, 33)
-    # s.insert_nth(2, 33)
-    # s.insert_nth(2, 33)
-    # s.insert_nth(3, 33)
-    s.remove_duplicates()
+    # s.push(1)
+    # s.push(1)
+    # # s.insert_nth(2, 33)
+    # # s.insert_nth(2, 33)
+    # # s.insert_nth(2, 33)
+    # # s.insert_nth(3, 33)
+    # s.remove_duplicates()
+    # s.display()
+    s.insert_sorted(1)
+    s.insert_sorted(3)
+    s.insert_sorted(5)
     s.display()
+
+    v = StackWithLinkedList()
+    v.insert_sorted(2)
+    v.insert_sorted(4)
+    v.insert_sorted(6)
+    v.display()
+
+    t = StackWithLinkedList()
+    final = merge_sorted_list(s.top, v.top, t)
+    final.display()
