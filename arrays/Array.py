@@ -1,3 +1,6 @@
+import random
+
+
 class OutBoundException(Exception):
     pass
 
@@ -18,10 +21,11 @@ class Array:
         Time complexity: O(N)
         Space complexity: O(1)
         """
-        output = ", ".join([str(val) for val in self.data if val])
-        print(f"[{output}]")
+        # output = ", ".join([str(val) for val in self.data if val])
+        # print(f"[{output}]")
         # for i in range(self.length):
         #     print(self.data[i])
+        print(self.data)
 
     def add(self, value):
         """
@@ -64,11 +68,11 @@ class Array:
         if index < 0 or index >= self.length:
             raise OutBoundException("Index is out of bound")
 
-        for i in range(index, self.length-1):
-            self.data[i] = self.data[i+1]
+        for i in range(index, self.length - 1):
+            self.data[i] = self.data[i + 1]
 
         # remove the last element
-        self.data[self.length-1] = None
+        self.data[self.length - 1] = None
         self.length -= 1
 
     def get(self, index):
@@ -138,7 +142,7 @@ class Array:
         Time complexity: O(N)
         Space complexity: O(1)
         """
-        return self.sum()/self.length
+        return self.sum() / self.length
 
     def sum(self):
         """
@@ -157,20 +161,89 @@ class Array:
 
         return total
 
+    def insert_sorted(self, value):
+        """
+        Time complexity: O(N)
+        Space complexity: O(1)
+        """
+        # check if array is full
+        if self.is_full():
+            raise Exception("Array is full")
+
+        last_index = self.length - 1
+        while last_index >= 0 and self.data[last_index] >= value:
+            self.data[last_index + 1] = self.data[last_index]  # copy the current element to the slot next to it
+            last_index -= 1
+        # insert the element at the last_index + 1
+        self.data[last_index + 1] = value
+        self.length += 1  # increment the number of elements in the array
+
+    def is_sorted(self):
+        """
+        Checks if an array is sorted or not
+        Time complexity: O(N)
+        Space complexity: O(1)
+        """
+        for i in range(0, self.length - 1):
+            if self.data[i] > self.data[i + 1]:
+                return False
+        return True
+
+    def rearrage(self):
+        """
+        Rearrage all the -ve number to be on the left side and positive numbers should be on the right side
+
+        Time complexity: O(N)
+        Space complexity: O(1)
+        """
+        start = 0
+        end = self.length - 1
+
+        while start < end:
+            # increment start until we find a positive number
+            if self.data[start] < 0:
+                start += 1
+                continue
+            # decrement end until we get a negative number
+            if self.data[end] >= 0:
+                end -= 1
+            else:
+                # swap both numbers
+                self.data[start], self.data[end] = self.data[end], self.data[start]
+                start += 1
+                end -= 1
+
 
 if __name__ == "__main__":
     arr = Array()
-    arr.add(1)
-    arr.add(2)
-    arr.add(3)
+    # arr.add(1)
+    # arr.add(2)
+    # arr.add(3)
+    # arr.add(4)
+    # arr.insert(0, 5)
+    # arr.insert(5, 2)
+    # arr.insert(6, 5)
+    # arr.display()
+    # arr.delete(0)
+    # arr.display()
+    # print(arr.min())
+    # print(arr.max())
+    # print(arr.sum())
+    # print(arr.avg())
+    # for x in range(5):
+    #     value = int(random.random() * 100)
+    #     # arr.add()
+    #     arr.insert_sorted(value)
+    # arr.display()
+    # print(arr.is_sorted())
+
+    arr.add(-2)
     arr.add(4)
-    arr.insert(0, 5)
-    arr.insert(5, 2)
-    arr.insert(6, 5)
+    arr.add(-3)
+    # arr.add(-8)
+    # arr.add(7)
+    # arr.add(3)
+
     arr.display()
-    arr.delete(0)
+    arr.rearrage()
     arr.display()
-    print(arr.min())
-    print(arr.max())
-    print(arr.sum())
-    print(arr.avg())

@@ -116,25 +116,47 @@ class StackWithLinkedList:
             prev = cur
             cur = cur.next
 
-def merge_sorted_list(lista, listb, listc):
-    while lista is not None and listb is not None:
-        if lista.data < listb.data:
-            listc.push(lista.data)
-            lista = lista.next
-        else:
-            listc.push(listb.data)
-            listb = listb.next
+def merge_sorted_list(lista, listb):
+    if lista is None: return listb
+    if listb is None: return lista
 
-    while lista is not None:
-        listc.push(lista.data)
+    if lista.data < listb.data:
+        head = lista
         lista = lista.next
-
-    while listb is not None:
-        listc.push(listb.data)
+    else:
+        head = listb
         listb = listb.next
 
-    return listc
+    head.next = None
+    cur = head
+    while lista is not None and listb is not None:
+        if lista.data < listb.data:
+            cur.next = lista
+            lista = lista.next
 
+        else:
+            cur.next = listb
+            listb = listb.next
+        cur = cur.next
+
+    if lista is not None:
+        cur.next = lista
+    else:
+        cur.next = listb
+
+    return head
+
+
+def reverse_iter(head):
+    prev = None
+    cur = head
+
+    while cur is not None:
+        next = cur.next
+        cur.next = prev
+        prev = cur
+        cur = next
+    return prev
 
 
 if __name__ == "__main__":
@@ -199,6 +221,14 @@ if __name__ == "__main__":
     v.insert_sorted(6)
     v.display()
 
-    t = StackWithLinkedList()
-    final = merge_sorted_list(s.top, v.top, t)
-    final.display()
+    final = merge_sorted_list(s.top, v.top)
+    #
+    # while final is not None:
+    #     print(final.data, sep=" -> ")
+    #     final = final.next
+
+    final = reverse_iter(final)
+    while final is not None:
+        print(final.data, sep=" -> ")
+        final = final.next
+
