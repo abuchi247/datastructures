@@ -1,5 +1,6 @@
 def merge_arrays(a, b):
     """
+    Merge two sorted arrays into a single sorted array
     Time complexity: O(N + M)
     Space complexity: O(N + M)
     """

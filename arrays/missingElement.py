@@ -64,8 +64,8 @@ def find_missing_number_sorted_sol2(arr):
     for i in range(len(arr)):
         # ensure the difference between the number and the index are always the same the first element
         if (arr[i] - i) != diff:
-            new_diff = arr[i] - i
-            while diff < new_diff:
+            # keep storing the values missing until the current difference is equal to the new difference
+            while diff < arr[i] - i:
                 missing_num.append(i + diff)
                 diff += 1
     return missing_num
@@ -93,13 +93,18 @@ def find_missing_number_optimal(arr):
     """
     min_element = min(arr)
     max_element = max(arr)
+    # creating a hash table
     miss_array = [0]*(max_element+1)
 
+    # populating the hashtable
     for i in range(len(arr)):
         value = arr[i]
+        # constant time
         miss_array[value] += 1
 
-    for i in range(1, len(miss_array)):
+    # iterating over the hashtable
+    for i in range(min_element, len(miss_array)):
+        # display only the elements missing == 0 value
         if miss_array[i] == 0:
             print(i, end=" ")
 
@@ -112,8 +117,8 @@ def sum(arr):
 
 
 if __name__ == "__main__":
-    arr = [1, 2, 3, 5, 6, 9, 20]
-    print(find_missing_number_sorted_sol1(arr))
+    arr = [1, 2, 3, 5, 6, 9, 14, 20]
+    # print(find_missing_number_sorted_sol1(arr))
     print(find_missing_number_sorted_sol2(arr))
-    print(find_missing_number_sorted_sol3(arr))
-    print(find_missing_number_optimal(arr))
+    # print(find_missing_number_sorted_sol3(arr))
+    find_missing_number_optimal(arr)
