@@ -87,7 +87,7 @@ def evaluate_tests(func, tests):
         if test["output"] == result:
             print(f"PASSED: {test['input']}")
         else:
-            print(f"FAILED: {test['input']}. Expected {test['output']} got {result}")
+            raise Exception(f"FAILED: {test['input']}. Expected {test['output']} got {result}")
 
 
 if __name__ == "__main__":
