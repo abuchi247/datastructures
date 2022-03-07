@@ -5,7 +5,7 @@ class OutBoundException(Exception):
     pass
 
 
-class Array:
+class StaticArray:
 
     def __init__(self, size=10):
         self.size = size
@@ -215,7 +215,7 @@ class Array:
 
 
 if __name__ == "__main__":
-    arr = Array()
+    arr = StaticArray()
     # arr.add(1)
     # arr.add(2)
     # arr.add(3)
@@ -245,5 +245,6 @@ if __name__ == "__main__":
     # arr.add(3)
 
     arr.display()
-    arr.rearrage()
+    arr.insert(0, 10)
+    # arr.rearrage()
     arr.display()

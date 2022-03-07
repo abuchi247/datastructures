@@ -34,9 +34,9 @@ def perm_sol2(arr, l, h):
             swap(arr, l, i)
 
 
-s = ["A", "B", "C"]
+s = ["A", "B", "C", "D"]
 A = [0]*len(s)
 res = [""]*len(s)
 
 # perm_sol1(s, 0)
-perm_sol2(s, 0, 2)
+# perm_sol2(s, 0, 3)

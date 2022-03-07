@@ -20,52 +20,54 @@
 # https://leetcode.com/problems/two-sum/
 
 def find_two_sum_brute_force(arr, target):
-  """
+    """
   Adds all pair of numbers to see if it equals the target
 
   Time complexity - O(N^2)
   Space complexity - O(1)
   """
-  if arr is None:
-    return None
+    if arr is None:
+        return None
 
-  for i in range(len(arr)):
-    num_to_find = target - arr[i]
-    for j in range(i+1, len(arr)):
-      if arr[j] == num_to_find:
-        return [i, j]
-  return None
+    for i in range(len(arr)):
+        num_to_find = target - arr[i]
+        for j in range(i + 1, len(arr)):
+            if arr[j] == num_to_find:
+                return [i, j]
+    return None
 
 
 def find_two_sum_optimized(arr, target):
-  """
+    """
   finds the sum of two pairs that equals the target
 
   """
-  if arr is None:
-    return None
-  
-  nums_map = {}
+    if arr is None:
+        return None
 
-  for i in range(len(arr)):
-    # check if we've seen this number before
-    if arr[i] in nums_map:
-      return [nums_map[arr[i]], i]
-    
-    # otherwise, find the number to find and add to dictionary
-    num_to_find = target - arr[i]
-    nums_map[num_to_find] = i
+    nums_map = {}
 
-  return None
-  
+    for i in range(len(arr)):
+        # number to find
+        num_to_find = target - arr[i]
+        # check if we've seen this number before
+        if num_to_find in nums_map:
+            return [nums_map[num_to_find], i]
+
+        # add the number to the dictionary along with the index
+        nums_map[arr[i]] = i
+
+    # otherwise, return -1, -1 if not found
+    return [-1, -1]
+
 
 if __name__ == "__main__":
-  num_test = int(input("Number of test cases: "))
+    num_test = int(input("Number of test cases: "))
 
-  while num_test > 0:
-    arr = list(map(int, input("Enter array separated by space: ").split()))
-    target = int(input("Enter a target sum: "))
+    while num_test > 0:
+        arr = list(map(int, input("Enter array separated by space: ").split()))
+        target = int(input("Enter a target sum: "))
 
-    print(f"{target} can be achieved by summing {find_two_sum_brute_force(arr, target)}")
-    print(f"{target} can be achieved by summing {find_two_sum_optimized(arr, target)}")
-    num_test -= 1
+        print(f"{target} can be achieved by summing {find_two_sum_brute_force(arr, target)}")
+        print(f"{target} can be achieved by summing {find_two_sum_optimized(arr, target)}")
+        num_test -= 1
