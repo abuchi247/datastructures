@@ -27,8 +27,8 @@ tests = [
         "output": [1, 2, 3, 4, 7, 8]
     },
     {
-        "input": [i for i in range(100000, 0, -1)],
-        "output": [i for i in range(0, 100001)]
+        "input": [i for i in range(1000, 0, -1)],
+        "output": [i for i in range(1, 1001)]
     }
 ]
 
@@ -101,6 +101,6 @@ def evaluate_tests(tests, func):
 
 
 if __name__ == "__main__":
-    evaluate_tests(tests, insertion_v1)
-    evaluate_tests(tests, insertion_v2)
     evaluate_tests(tests, insertion_v3)
+    evaluate_tests(tests, insertion_v2)
+    evaluate_tests(tests, insertion_v1)
