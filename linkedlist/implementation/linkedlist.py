@@ -305,7 +305,7 @@ def front_back_split_optimal(source, front_ref, back_ref):
 
     front_ref.head = source.head
     back_ref.head = slow.next
-    slow.next = None
+    # slow.next = None
 
     return front_ref, back_ref
 
