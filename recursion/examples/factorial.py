@@ -1,3 +1,6 @@
+# factorial of a number
+# N! = 1 * 2 * 3 * ..... * N
+# 5! = 1 * 2 * 3 * 4 * 5
 
 tests = [
     {

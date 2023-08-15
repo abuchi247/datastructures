@@ -1,3 +1,28 @@
+#
+# - This is a command line, text-only game to simulate battleship against an easy computer opponent.
+#
+# - The game is played between 2 players, who each have a 10x10 grid with columns A-J and rows 1-10
+#
+# - Ships are all 1 square wide and the player gets 1 each of length 2, 3, 4, and 5.
+#
+# - The user types a command to start battleship game and the computer lays out the ships for both players. Ships can
+# only be horizontal or vertical and cannot intersect.
+#
+# - The players alternate turns and pick a coordinate to fire upon during each turn.
+#
+# - After the user selects a square, the computer informs them of the result. If the square has no ship,
+# it was a miss. If the square has a ship that has not been hit, it was a hit. When the user hits all the squares
+# of the ship, they have sunk the ship. When they have sunk all the opponents' ships, they win. The user should be
+# allowed to hit the same square twice.
+#
+# - The computer is an easy opponent: it needs only to make a random selection from the squares it has not selected.
+#
+# - Displaying the board graphically is not required.
+#
+# - The purpose of this exercise is to demonstrate program design and code readability with a program that is
+# relatively quick to implement. A pretty user interface is not required.
+
+
 """
 File contains the Battleship game implementation
 @author Abuchi Obiegbu
@@ -51,6 +76,8 @@ BOARD_HEADER = header = PADDING + f" {PADDING.join(list(BOARD_COLUMNS.keys()))}"
 ALLOWED_SHIP_POSITION = ["horizontal", "vertical"]
 # set to keep track of computer guesses
 COMPUTER_GUESSES = set()
+
+DELAY_BETWEEN_PLAYERS_SEC = 2  # in secs
 
 
 ##################################
@@ -210,10 +237,17 @@ class BattleShipBoard:
 
         # populate board for viewing
         for index, row in enumerate(board):
-            output.append(f"{index + 1:^3d} {PADDING.join([column for column in row])}")
+            for col_index, col in enumerate(board[index]):
+                if 3 <= index <= 6 and 3 <= col_index <= 6:
+                    print("-", end=" ")
+                else:
+                    print(board[index][col_index],  end=" ")
+            print()
+
+            # output.append(f"{index + 1:^3d} {PADDING.join([column for column in row])}")
 
         # display board on screen
-        print("\n".join(output))
+        # print("\n".join(output))
 
     def is_all_ship_sunk(self) -> bool:
         """
@@ -377,6 +411,8 @@ class BattleShipBoard:
         upper_limit = column + ship_length
         # go through the columns
         for i in range(column, upper_limit):
+            if 3 <= row <= 6 and 3 <= i <= 6:
+                return False
             # Checks for overlap with other ships
             if self.__grid[row][i] == SHIP_SIGN:
                 return False
@@ -403,6 +439,8 @@ class BattleShipBoard:
         upper_limit = row + ship_length
         # go through the rows
         for i in range(row, upper_limit):
+            if 3 <= column <= 6 and 3 <= i <= 6:
+                return False
             # Checks for overlap with other ships
             if self.__grid[i][column] == SHIP_SIGN:
                 return False
@@ -476,12 +514,13 @@ class BattleShipGame:
             if turn(current_player, opponent):
                 # check if the game over
                 if opponent.board.is_all_ship_sunk():
+                    opponent.board.show_board()
                     print(f"Congratulations! Player {current_player.name!r} won!")
                     print("GAME OVER!!!")
                     break
 
             # Adding 2 seconds sleep to all user see report
-            time.sleep(2)
+            time.sleep(DELAY_BETWEEN_PLAYERS_SEC)
             count += 1
 
 
@@ -647,6 +686,8 @@ def turn(current_player: Player, opponent: Player) -> bool:
         print(PLAYER_BOARD_LOGO)
         # display a opponent board
         opponent.board.show_board()
+        print("HIDDEN")
+        opponent.board.show_board(show_private_board=True)
     print(f"Current player: {current_player.name!r}")
     row_guessed, col_guessed = read_or_generate_guess(current_player)
     print(f"\tGuessed: {col_guessed}{row_guessed}")
